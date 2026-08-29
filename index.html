@@ -2,149 +2,76 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-<meta name="theme-color" content="#f5f5f7">
-<title>🎨 Cartoon Color Studio</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Cartoon Color Studio — Alphabet Animals</title>
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;background:#f5f5f7;color:#111;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-header{padding:16px 12px 8px;text-align:center;font-size:24px;font-weight:800}
-#status{text-align:center;color:#666;font-size:13px;padding:4px 12px}
-#cats,#tools,#colors{display:flex;gap:8px;padding:8px 12px;overflow:auto}
-button{background:#fff;border:0;border-radius:14px;padding:11px 14px;font-size:15px;box-shadow:0 2px 7px #0002;white-space:nowrap}
-button.active{outline:3px solid #777}
-#offline{background:#111;color:#fff}
-#count{text-align:center;color:#666;padding:6px}
-#grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:12px}
-.card{background:#fff;border-radius:17px;padding:8px;box-shadow:0 2px 8px #0002}
-.card img{display:block;width:100%;aspect-ratio:2550/3300;object-fit:contain;border-radius:10px;background:#fff}
-.card b{display:block;text-align:center;padding:8px 3px;font-size:15px}
-#editor{display:none;padding:10px}
-.stage{background:#fff;border-radius:16px;padding:6px;box-shadow:0 2px 8px #0002;overflow:auto}
-canvas{width:100%;height:auto;display:block;touch-action:none}
-#tools{position:sticky;bottom:0;background:#f5f5f7;padding-bottom:calc(8px + env(safe-area-inset-bottom))}
-.sw{width:38px;height:38px;padding:0;border-radius:50%}
-#progress{height:5px;background:#ddd;margin:5px 12px;border-radius:4px;overflow:hidden}
-#bar{height:100%;width:0;background:#111}
-@media(min-width:800px){#grid{grid-template-columns:repeat(4,1fr)}}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#f5f5f7;color:#151515}header{text-align:center;padding:28px 16px 12px}h1{font-size:38px;margin:0 0 8px;font-weight:800}header p{font-size:19px;color:#666;margin:0 0 18px}.bar{height:8px;background:#ddd;border-radius:99px;margin:0 18px 20px}.tabs{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}.tab{border:0;background:#fff;border-radius:28px;padding:14px 24px;font-size:20px;box-shadow:0 3px 12px #0001}.tab.active{outline:5px solid #777}.count{text-align:center;font-size:25px;color:#666;margin:20px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;padding:0 24px 36px;max-width:1200px;margin:auto}.card{background:#fff;border-radius:28px;padding:16px;box-shadow:0 8px 22px #0001;overflow:hidden}.title{font-size:28px;margin:0 0 8px;font-weight:500}.art{width:100%;aspect-ratio:1/1;border:1px solid #ddd;border-radius:4px;display:block;background:#fff;touch-action:none}.caption{text-align:center;font-weight:800;font-size:24px;margin:12px 0 0}.tools{position:sticky;bottom:0;background:#fff;border-top:1px solid #ddd;padding:10px 12px;display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;z-index:5}.tools button{border:0;background:#eee;border-radius:12px;padding:10px 14px;font-size:16px}.tools input{width:42px;height:42px;padding:0;border:0}.note{text-align:center;color:#666;font-size:14px;padding:0 16px 28px}.swatch{width:30px!important;height:30px!important;border-radius:50%;border:2px solid #aaa!important;padding:0!important}.swatch.selected{outline:3px solid #111;outline-offset:2px}
+@media(max-width:700px){h1{font-size:32px}.grid{grid-template-columns:1fr;gap:18px;padding:0 16px 28px}.title{font-size:25px}.caption{font-size:22px}.tools{justify-content:flex-start;overflow:auto}.tab{font-size:18px}}
 </style>
 </head>
 <body>
-<header>🎨 Cartoon Color Studio</header>
-<div id="status">26 BIG cartoon animal alphabet pages • works offline</div>
-<div id="progress"><div id="bar"></div></div>
-<section id="gallery">
-  <div id="cats"></div>
-  <div id="count"></div>
-  <div id="grid"></div>
-  <div id="tools"><button id="offline">✈️ Prepare for Airplane Mode</button></div>
-</section>
-<section id="editor">
-  <button id="back">← Gallery</button>
-  <div class="stage"><canvas id="c" width="900" height="1160"></canvas></div>
-  <div id="tools">
-    <button id="fill">🪣 Fill</button><button id="brush">✏️ Brush</button>
-    <button id="erase">🧽 Eraser</button><button id="undo">↩️ Undo</button>
-    <button id="redo">↪️ Redo</button><button id="save">💾 Save</button>
-  </div>
-  <div id="colors"></div>
-</section>
+<header><h1>🎨 Cartoon Color Studio</h1><p>26 BIG cartoon animal alphabet pages • works offline</p><div class="bar"></div><div class="tabs"><button class="tab active" id="allBtn">All</button><button class="tab" id="alphaBtn">Alphabet Animals</button></div></header>
+<div class="count" id="count">26 coloring pages</div>
+<main class="grid" id="grid"></main>
+<div class="tools"><button id="undo">↩ Undo</button><button id="redo">↪ Redo</button><button id="clear">🧽 Clear page</button><button id="save">💾 Save</button><span>Colors:</span><input class="swatch selected" type="button" data-color="#ff595e" style="background:#ff595e"><input class="swatch" type="button" data-color="#ffca3a" style="background:#ffca3a"><input class="swatch" type="button" data-color="#8ac926" style="background:#8ac926"><input class="swatch" type="button" data-color="#1982c4" style="background:#1982c4"><input class="swatch" type="button" data-color="#6a4c93" style="background:#6a4c93"><input class="swatch" type="button" data-color="#ff924c" style="background:#ff924c"><input class="swatch" type="button" data-color="#ffffff" style="background:#fff"></div>
+<div class="note">Tap an enclosed animal part to fill it. No external images or libraries are used.</div>
 <script>
-const P=[{"id":1,"name":"A is for Alligator","category":"Alphabet Animals","url":"images/A.svg"},{"id":2,"name":"B is for Bear","category":"Alphabet Animals","url":"images/B.svg"},{"id":3,"name":"C is for Cat","category":"Alphabet Animals","url":"images/C.svg"},{"id":4,"name":"D is for Dog","category":"Alphabet Animals","url":"images/D.svg"},{"id":5,"name":"E is for Elephant","category":"Alphabet Animals","url":"images/E.svg"},{"id":6,"name":"F is for Fox","category":"Alphabet Animals","url":"images/F.svg"},{"id":7,"name":"G is for Giraffe","category":"Alphabet Animals","url":"images/G.svg"},{"id":8,"name":"H is for Hippo","category":"Alphabet Animals","url":"images/H.svg"},{"id":9,"name":"I is for Iguana","category":"Alphabet Animals","url":"images/I.svg"},{"id":10,"name":"J is for Jaguar","category":"Alphabet Animals","url":"images/J.svg"},{"id":11,"name":"K is for Kangaroo","category":"Alphabet Animals","url":"images/K.svg"},{"id":12,"name":"L is for Lion","category":"Alphabet Animals","url":"images/L.svg"},{"id":13,"name":"M is for Monkey","category":"Alphabet Animals","url":"images/M.svg"},{"id":14,"name":"N is for Narwhal","category":"Alphabet Animals","url":"images/N.svg"},{"id":15,"name":"O is for Owl","category":"Alphabet Animals","url":"images/O.svg"},{"id":16,"name":"P is for Penguin","category":"Alphabet Animals","url":"images/P.svg"},{"id":17,"name":"Q is for Quokka","category":"Alphabet Animals","url":"images/Q.svg"},{"id":18,"name":"R is for Rabbit","category":"Alphabet Animals","url":"images/R.svg"},{"id":19,"name":"S is for Sloth","category":"Alphabet Animals","url":"images/S.svg"},{"id":20,"name":"T is for Tiger","category":"Alphabet Animals","url":"images/T.svg"},{"id":21,"name":"U is for Unicorn","category":"Alphabet Animals","url":"images/U.svg"},{"id":22,"name":"V is for Vulture","category":"Alphabet Animals","url":"images/V.svg"},{"id":23,"name":"W is for Whale","category":"Alphabet Animals","url":"images/W.svg"},{"id":24,"name":"X is for Xerus","category":"Alphabet Animals","url":"images/X.svg"},{"id":25,"name":"Y is for Yak","category":"Alphabet Animals","url":"images/Y.svg"},{"id":26,"name":"Z is for Zebra","category":"Alphabet Animals","url":"images/Z.svg"}];
-const gallery=document.getElementById('gallery'),editor=document.getElementById('editor');
-const grid=document.getElementById('grid'),cats=document.getElementById('cats'),count=document.getElementById('count');
-const status=document.getElementById('status'),bar=document.getElementById('bar');
-const canvas=document.getElementById('c'),ctx=canvas.getContext('2d',{willReadFrequently:true});
-let cat='All',tool='fill',color='#ff3b30',cur=null,undoStack=[],redoStack=[],down=false,last=null;
-
-function render(){
- grid.innerHTML='';
- const a=P.filter(x=>cat==='All'||x.category===cat);
- count.textContent=a.length+' coloring pages';
- a.forEach(p=>{
-   const d=document.createElement('div'); d.className='card';
-   const i=document.createElement('img'); i.loading='lazy'; i.src=p.url; i.alt=p.name;
-   const b=document.createElement('b'); b.textContent=p.name;
-   d.append(i,b); d.onclick=()=>openPage(p); grid.append(d);
- });
-}
-['All',...new Set(P.map(x=>x.category))].forEach(x=>{
- const b=document.createElement('button'); b.textContent=x;
- b.onclick=()=>{cat=x;document.querySelectorAll('#cats button').forEach(q=>q.classList.remove('active'));
- b.classList.add('active');render()};
- if(x==='All')b.classList.add('active');cats.append(b);
-});
-
-function openPage(p){
- cur=p; gallery.style.display='none'; editor.style.display='block';
- const im=new Image();
- im.onload=()=>{
-   ctx.clearRect(0,0,900,1160);
-   // Preserve the full printable page and fit it into our working canvas.
-   const scale=Math.min(900/im.width,1100/im.height);
-   const w=im.width*scale,h=im.height*scale,x=(900-w)/2,y=10;
-   ctx.drawImage(im,x,y,w,h);
-   undoStack=[];redoStack=[];
+const animals=[['A','Alligator'],['B','Bear'],['C','Cat'],['D','Dog'],['E','Elephant'],['F','Fox'],['G','Giraffe'],['H','Hippo'],['I','Iguana'],['J','Jaguar'],['K','Koala'],['L','Lion'],['M','Monkey'],['N','Narwhal'],['O','Owl'],['P','Penguin'],['Q','Quail'],['R','Rabbit'],['S','Snake'],['T','Tiger'],['U','Urial'],['V','Vulture'],['W','Whale'],['X','Xerus'],['Y','Yak'],['Z','Zebra']];
+const colors=['#ff595e','#ffca3a','#8ac926','#1982c4','#6a4c93','#ff924c','#ffffff']; let selectedColor=colors[0];
+let history=[],future=[];
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function animalSVG(letter,name){
+ const seed=letter.charCodeAt(0); const bodyW=170+(seed%35), bodyH=125+(seed%25); let ears='';
+ const special={
+ Alligator:`<path d="M100 210 Q145 165 245 190 L330 175 Q370 185 390 215 L340 235 Q270 245 190 235Z"/><path d="M325 188 L370 160 L382 200"/><circle cx="354" cy="184" r="6"/>`,
+ Bear:`<circle cx="155" cy="145" r="42"/><circle cx="345" cy="145" r="42"/><ellipse cx="250" cy="235" rx="135" ry="105"/><circle cx="200" cy="215" r="9"/><circle cx="300" cy="215" r="9"/><ellipse cx="250" cy="250" rx="30" ry="22"/>`,
+ Cat:`<path d="M145 175 L135 105 L205 140 Q250 120 295 140 L365 105 L355 175 Q375 240 250 275 Q125 240 145 175Z"/><circle cx="205" cy="195" r="9"/><circle cx="295" cy="195" r="9"/><path d="M250 215 l-12 10 12 8 12-8Z"/>`,
+ Dog:`<path d="M145 175 L120 115 Q135 90 185 145 Q250 120 315 145 Q365 90 380 115 L355 175 Q375 250 250 275 Q125 250 145 175Z"/><circle cx="205" cy="200" r="9"/><circle cx="295" cy="200" r="9"/><ellipse cx="250" cy="225" rx="28" ry="20"/>`,
+ Elephant:`<ellipse cx="250" cy="210" rx="135" ry="105"/><ellipse cx="135" cy="190" rx="42" ry="68"/><ellipse cx="365" cy="190" rx="42" ry="68"/><path d="M250 235 Q270 250 265 310 Q260 350 235 350 Q220 345 230 315 L235 255"/><circle cx="205" cy="190" r="9"/><circle cx="295" cy="190" r="9"/>`,
+ Fox:`<path d="M145 170 L135 105 L205 145 Q250 125 295 145 L365 105 L355 170 Q375 235 250 275 Q125 235 145 170Z"/><circle cx="205" cy="195" r="9"/><circle cx="295" cy="195" r="9"/><path d="M250 215 l-15 12 15 9 15-9Z"/>`,
+ Giraffe:`<path d="M205 250 L205 150 Q205 85 250 75 Q295 85 295 150 L295 250Z"/><ellipse cx="250" cy="260" rx="85" ry="75"/><circle cx="220" cy="235" r="8"/><circle cx="280" cy="235" r="8"/><path d="M225 165 h35 v30 h-35z M270 115 h28 v28 h-28z"/>`,
+ Hippo:`<ellipse cx="250" cy="220" rx="145" ry="100"/><ellipse cx="155" cy="160" rx="45" ry="42"/><ellipse cx="345" cy="160" rx="45" ry="42"/><circle cx="205" cy="195" r="9"/><circle cx="295" cy="195" r="9"/><ellipse cx="250" cy="235" rx="48" ry="28"/>`,
+ Iguana:`<path d="M105 230 Q150 155 250 185 Q340 155 395 230 Q350 265 285 245 Q220 275 155 255Z"/><path d="M155 185 l-20-45 35 35 15-55 18 60 35-50 5 65"/><circle cx="180" cy="205" r="8"/>`,
+ Jaguar:`<path d="M145 170 L135 110 L205 145 Q250 125 295 145 L365 110 L355 170 Q375 240 250 275 Q125 240 145 170Z"/><circle cx="205" cy="195" r="9"/><circle cx="295" cy="195" r="9"/><path d="M170 165 a12 12 0 1 0 1 0 M330 165 a12 12 0 1 0 1 0 M210 245 a10 10 0 1 0 1 0 M290 245 a10 10 0 1 0 1 0"/>`,
+ Koala:`<circle cx="155" cy="155" r="48"/><circle cx="345" cy="155" r="48"/><ellipse cx="250" cy="225" rx="120" ry="105"/><circle cx="205" cy="200" r="9"/><circle cx="295" cy="200" r="9"/><ellipse cx="250" cy="225" rx="28" ry="34"/>`,
+ Lion:`<circle cx="250" cy="210" r="125"/><circle cx="160" cy="125" r="48"/><circle cx="340" cy="125" r="48"/><ellipse cx="250" cy="225" rx="82" ry="78"/><circle cx="220" cy="195" r="9"/><circle cx="280" cy="195" r="9"/><ellipse cx="250" cy="225" rx="25" ry="18"/>`,
+ Monkey:`<circle cx="150" cy="190" r="55"/><circle cx="350" cy="190" r="55"/><ellipse cx="250" cy="220" rx="110" ry="105"/><circle cx="210" cy="195" r="9"/><circle cx="290" cy="195" r="9"/><ellipse cx="250" cy="225" rx="30" ry="24"/>`,
+ Narwhal:`<path d="M110 240 Q170 145 300 175 Q355 185 390 235 Q340 275 250 265 Q165 280 110 240Z"/><path d="M300 175 L345 105"/><circle cx="320" cy="205" r="8"/>`,
+ Owl:`<circle cx="250" cy="215" r="125"/><circle cx="185" cy="190" r="48"/><circle cx="315" cy="190" r="48"/><circle cx="185" cy="190" r="15"/><circle cx="315" cy="190" r="15"/><path d="M250 205 l-22 30 h44Z"/>`,
+ Penguin:`<ellipse cx="250" cy="220" rx="100" ry="135"/><ellipse cx="250" cy="245" rx="65" ry="95"/><circle cx="220" cy="175" r="9"/><circle cx="280" cy="175" r="9"/><path d="M235 195 l15 18 15-18"/>`,
+ Quail:`<ellipse cx="250" cy="220" rx="125" ry="95"/><circle cx="190" cy="185" r="42"/><path d="M165 150 l-15-40 38 25 15-45 12 55"/><circle cx="195" cy="180" r="8"/>`,
+ Rabbit:`<ellipse cx="250" cy="230" rx="105" ry="105"/><ellipse cx="205" cy="90" rx="35" ry="90"/><ellipse cx="295" cy="90" rx="35" ry="90"/><circle cx="215" cy="205" r="9"/><circle cx="285" cy="205" r="9"/><ellipse cx="250" cy="230" rx="22" ry="18"/>`,
+ Snake:`<path d="M90 250 Q145 160 220 230 Q290 300 360 210 Q385 180 405 205 Q360 300 285 280 Q205 260 150 300 Q105 325 90 290Z"/><circle cx="375" cy="205" r="8"/>`,
+ Tiger:`<path d="M145 170 L135 110 L205 145 Q250 125 295 145 L365 110 L355 170 Q375 240 250 275 Q125 240 145 170Z"/><circle cx="205" cy="195" r="9"/><circle cx="295" cy="195" r="9"/><path d="M180 145 l25 30 M320 145 l-25 30 M205 260 l15-30 M295 260 l-15-30"/>`,
+ Urial:`<ellipse cx="250" cy="225" rx="125" ry="95"/><circle cx="180" cy="175" r="55"/><path d="M155 145 Q95 100 130 65 Q170 90 175 145 M345 145 Q405 100 370 65 Q330 90 325 145"/><circle cx="185" cy="175" r="8"/>`,
+ Vulture:`<path d="M135 230 Q150 140 250 145 Q350 140 365 230 Q320 270 250 255 Q180 270 135 230Z"/><path d="M190 150 Q180 80 220 65 L250 125 L280 65 Q320 80 310 150"/><circle cx="220" cy="175" r="8"/><circle cx="280" cy="175" r="8"/>`,
+ Whale:`<path d="M80 235 Q145 130 275 165 Q350 175 410 235 Q345 295 250 270 Q145 290 80 235Z"/><path d="M245 165 Q245 110 260 95 Q275 110 270 165"/><circle cx="310" cy="205" r="8"/>`,
+ Xerus:`<ellipse cx="250" cy="220" rx="115" ry="90"/><circle cx="170" cy="170" r="45"/><path d="M145 140 l-20-40 35 25 25-45 10 55"/><circle cx="175" cy="170" r="8"/>`,
+ Yak:`<path d="M145 180 Q155 100 250 115 Q345 100 355 180 L335 270 Q250 300 165 270Z"/><path d="M165 145 Q110 90 95 130 Q125 160 155 175 M335 145 Q390 90 405 130 Q375 160 345 175"/><circle cx="210" cy="185" r="8"/><circle cx="290" cy="185" r="8"/>`,
+ Zebra:`<path d="M145 170 L135 110 L205 145 Q250 125 295 145 L365 110 L355 170 Q375 240 250 275 Q125 240 145 170Z"/><circle cx="205" cy="195" r="9"/><circle cx="295" cy="195" r="9"/><path d="M165 145 l30 35 M335 145 l-30 35 M190 255 l20-35 M310 255 l-20-35"/>`
  };
- im.src=p.url;
+ const drawing=special[name]||special.Cat;
+ return `<svg class="art" data-animal="${esc(name)}" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-label="${esc(letter)} is for ${esc(name)}">
+ <rect x="2" y="2" width="496" height="496" rx="10" fill="white" stroke="#222" stroke-width="4"/>
+ <text x="250" y="62" text-anchor="middle" font-size="48" font-weight="800" font-family="Arial">${letter} is for ${esc(name)}</text>
+ <g fill="white" stroke="#111" stroke-width="7" stroke-linejoin="round" stroke-linecap="round">${drawing}</g>
+ <path d="M225 285 Q250 300 275 285" fill="none"/>
+ <text x="250" y="455" text-anchor="middle" font-size="110" font-weight="900" font-family="Arial" fill="white" stroke="#111" stroke-width="3">${letter}</text>
+ </svg>`;
 }
-back.onclick=()=>{editor.style.display='none';gallery.style.display='block'};
-
-function snapshot(){undoStack.push(canvas.toDataURL('image/png'));if(undoStack.length>12)undoStack.shift();redoStack=[]}
-function restore(s){const i=new Image();i.onload=()=>{ctx.clearRect(0,0,900,1160);ctx.drawImage(i,0,0)};i.src=s}
-undo.onclick=()=>{if(undoStack.length){redoStack.push(canvas.toDataURL('image/png'));restore(undoStack.pop())}};
-redo.onclick=()=>{if(redoStack.length){undoStack.push(canvas.toDataURL('image/png'));restore(redoStack.pop())}};
-fill.onclick=()=>tool='fill';brush.onclick=()=>tool='brush';erase.onclick=()=>tool='erase';
-
-['#111111','#ffffff','#ff3b30','#ff9500','#ffcc00','#34c759','#00c7be','#0a84ff','#5856d6','#af52de','#ff2d55','#795548'].forEach(x=>{
- const b=document.createElement('button');b.className='sw';b.style.background=x;b.onclick=()=>color=x;colors.append(b)
-});
-save.onclick=()=>{const a=document.createElement('a');a.download=(cur?.name||'coloring-page')+'.png';a.href=canvas.toDataURL('image/png');a.click()};
-
-function pos(e){
- const r=canvas.getBoundingClientRect();
- return{x:Math.max(0,Math.min(899,Math.floor((e.clientX-r.left)*900/r.width))),
- y:Math.max(0,Math.min(1159,Math.floor((e.clientY-r.top)*1160/r.height)))}
-}
-function stroke(p){
- ctx.lineWidth=16;ctx.lineCap='round';ctx.globalCompositeOperation=tool==='erase'?'destination-out':'source-over';
- ctx.strokeStyle=color;ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();ctx.globalCompositeOperation='source-over';last=p
-}
-function flood(x,y){
- const im=ctx.getImageData(0,0,900,1160),d=im.data,idx=(y*900+x)*4;
- const target=[d[idx],d[idx+1],d[idx+2],d[idx+3]],h=color.slice(1);
- const f=[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16),255];
- const q=[[x,y]],seen=new Uint8Array(1044000);
- function same(k){
-   return Math.abs(d[k]-target[0])+Math.abs(d[k+1]-target[1])+Math.abs(d[k+2]-target[2])+Math.abs(d[k+3]-target[3])<70
- }
- while(q.length){
-   const [a,b]=q.pop();if(a<0||b<0||a>=900||b>=1160)continue;
-   const p=b*900+a,k=p*4;if(seen[p]||!same(k))continue;seen[p]=1;
-   d[k]=f[0];d[k+1]=f[1];d[k+2]=f[2];d[k+3]=255;
-   q.push([a+1,b],[a-1,b],[a,b+1],[a,b-1]);
- }
- ctx.putImageData(im,0,0);
-}
-canvas.onpointerdown=e=>{e.preventDefault();down=true;snapshot();const p=pos(e);if(tool==='fill')flood(p.x,p.y);else{last=p;stroke(p)}};
-canvas.onpointermove=e=>{if(down&&tool!=='fill'){e.preventDefault();stroke(pos(e))}};
-window.onpointerup=()=>{down=false;last=null};
-
-async function prepareOffline(){
- status.textContent='Preparing pages for airplane mode… 0 / '+P.length;
- let done=0;
- const cache=await caches.open('color-pages-v1');
- for(const p of P){
-   try{
-     const r=await fetch(p.url,{mode:'no-cors',cache:'force-cache'});
-     await cache.put(p.url,r.clone());
-   }catch(e){}
-   done++;bar.style.width=(done/P.length*100)+'%';
-   status.textContent='Preparing pages for airplane mode… '+done+' / '+P.length;
- }
- status.textContent='✈️ Ready for airplane mode — '+done+' pages prepared';
-}
-offline.onclick=prepareOffline;
-render();
+function makeCards(){const grid=document.getElementById('grid');grid.innerHTML='';animals.forEach(([l,n],i)=>{const c=document.createElement('article');c.className='card';c.innerHTML=`<h2 class="title">${l} is for ${n}</h2>${animalSVG(l,n)}<div class="caption">${l} is for ${n}</div>`;grid.appendChild(c)});bindArt();}
+function snapshot(svg){return svg.outerHTML}
+function bindArt(){document.querySelectorAll('.art').forEach(svg=>{svg.addEventListener('click',e=>{const t=e.target;if(t===svg||t.tagName==='text'||t.tagName==='rect')return;if(!t.getAttribute('data-fillable'))t.setAttribute('data-fillable','1');history.push({el:t,old:t.getAttribute('fill')});future=[];t.setAttribute('fill',selectedColor)});});}
+document.querySelectorAll('.swatch').forEach(b=>b.addEventListener('click',()=>{selectedColor=b.dataset.color;document.querySelectorAll('.swatch').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')}));
+document.getElementById('undo').onclick=()=>{const x=history.pop();if(x){future.push({el:x.el,old:x.el.getAttribute('fill')});x.el.setAttribute('fill',x.old||'white')}};
+document.getElementById('redo').onclick=()=>{const x=future.pop();if(x){history.push({el:x.el,old:x.el.getAttribute('fill')});x.el.setAttribute('fill',x.old)}};
+document.getElementById('clear').onclick=()=>{document.querySelectorAll('.art [data-fillable]').forEach(x=>x.setAttribute('fill','white'));history=[];future=[]};
+document.getElementById('save').onclick=()=>{const data=document.querySelectorAll('.art')[0].outerHTML;const blob=new Blob([data],{type:'image/svg+xml'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='alphabet-animal-coloring.svg';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+document.getElementById('allBtn').onclick=()=>{document.getElementById('allBtn').classList.add('active');document.getElementById('alphaBtn').classList.remove('active');document.querySelectorAll('.card').forEach(x=>x.style.display='block');document.getElementById('count').textContent='26 coloring pages'};
+document.getElementById('alphaBtn').onclick=()=>{document.getElementById('alphaBtn').classList.add('active');document.getElementById('allBtn').classList.remove('active');document.querySelectorAll('.card').forEach(x=>x.style.display='block');document.getElementById('count').textContent='26 alphabet animal coloring pages'};
+makeCards();
+if('serviceWorker' in navigator) window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 </script>
 </body></html>
