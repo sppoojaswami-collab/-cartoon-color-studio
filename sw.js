@@ -1,1 +1,3 @@
-const V='ccs-premium-v1';self.addEventListener('install',e=>e.waitUntil(caches.open(V).then(c=>c.addAll(['./','./index.html','./manifest.webmanifest']))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))))
+const V='cartoon-color-studio-fixed-v2';
+self.addEventListener('install',e=>e.waitUntil(caches.open(V).then(c=>c.addAll(['./','./index.html','./manifest.webmanifest']))));
+self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));
