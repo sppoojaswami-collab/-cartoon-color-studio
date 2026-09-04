@@ -1,1 +1,9 @@
-{"name":"Cartoon Color Studio - Alphabet Animals","short_name":"Color Studio","start_url":"./","display":"standalone","background_color":"#f5f5f7","theme_color":"#ffffff","icons":[]}
+{
+  "name": "Cartoon Color Studio",
+  "short_name": "Color Studio",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f5f7",
+  "theme_color": "#f5f5f7"
+}
